@@ -1,0 +1,56 @@
+SELECT * 
+FROM movies_info
+WHERE year LIKE '1950' OR year LIKE '1951' OR year LIKE '1952' OR year LIKE '1953' OR year LIKE '1954'
+.E
+SELECT title, fullplot, year, type, rated
+FROM movies_info
+.E
+SELECT title, fullplot, year, type, rated
+FROM movies_info
+WHERE year LIKE '1950' OR year LIKE '1951' OR year LIKE '1952' OR year LIKE '1953' OR year LIKE '1954'
+.E
+SELECT * 
+FROM all_comments
+INNER JOIN movies_info ON all_comments.movie_id = movies_info.movie_id
+WHERE year LIKE '1950' OR year LIKE '1951' OR year LIKE '1952' OR year LIKE '1953' OR year LIKE '1954';
+.E
+SELECT commenter_name, comment_text,  email, title, fullplot, rated
+FROM all_comments
+INNER JOIN movies_info ON all_comments.movie_id = movies_info.movie_id
+.E
+SELECT commenter_name, comment_text, email, title, fullplot, rated
+FROM all_comments
+INNER JOIN movies_info ON all_comments.movie_id = movies_info.movie_id
+WHERE year LIKE '1950' OR year LIKE '1951' OR year LIKE '1952' OR year LIKE '1953' OR year LIKE '1954';
+.E
+SELECT *
+FROM all_comments
+INNER JOIN movies_info ON all_comments.movie_id = movies_info.movie_id
+INNER JOIN all_users ON all_comments.user_id = all_users.user_id
+WHERE year LIKE '1950' OR year LIKE '1951' OR year LIKE '1952' OR year LIKE '1953' OR year LIKE '1954';
+.E
+SELECT commenter_name, all_comments.email, title, fullplot, rated, all_users.user_password
+FROM all_comments
+INNER JOIN movies_info ON all_comments.movie_id = movies_info.movie_id
+INNER JOIN all_users ON all_comments.user_id = all_users.user_id
+.E
+SELECT commenter_name, all_comments.email, title, fullplot, rated, all_users.user_password
+FROM all_comments
+INNER JOIN movies_info ON all_comments.movie_id = movies_info.movie_id
+INNER JOIN all_users ON all_comments.user_id = all_users.user_id
+WHERE year LIKE '1950' OR year LIKE '1951' OR year LIKE '1952' OR year LIKE '1953' OR year LIKE '1954';
+.E
+SELECT runtime, count(runtime)
+FROM movies_info
+WHERE year LIKE '1950' OR year LIKE '1951' OR year LIKE '1952' OR year LIKE '1953' OR year LIKE '1954'
+GROUP by runtime;
+.E
+SELECT runtime, count(runtime)
+FROM all_comments
+INNER JOIN movies_info ON all_comments.movie_id = movies_info.movie_id
+WHERE year LIKE '1950' OR year LIKE '1951' OR year LIKE '1952' OR year LIKE '1953' OR year LIKE '1954'
+or all_comments.commenter_name LIKE 'Theon Greyjoy' or all_comments.commenter_name LIKE 'Jorah Mormont'
+or all_comments.commenter_name LIKE 'Daario Naharis' or all_comments.commenter_name LIKE 'Meera Reed'
+or all_comments.commenter_name LIKE 'Olly'
+GROUP by runtime;
+.E
