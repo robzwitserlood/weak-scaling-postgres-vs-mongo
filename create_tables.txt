@@ -1,0 +1,121 @@
+CREATE TABLE arrest_info(
+ARREST_KEY varchar(100) PRIMARY KEY,
+ARREST_PRECINCT varchar(10), 
+ARREST_DATE date,
+PD_CD varchar(10), 
+PD_DESC text,
+KY_CD varchar(10),
+OFSN_DESC text,
+LAW_CODE varchar(10), 
+LAW_CAT_CD varchar(10) 
+)
+.E
+CREATE TABLE arrest_person(
+ARREST_KEY varchar(100) PRIMARY KEY,
+AGE_GROUP text,
+PERP_SEX varchar(1),
+PERP_RACE text
+)
+.E
+CREATE TABLE arrest_location(
+ARREST_KEY varchar(100) PRIMARY KEY,
+ARREST_BORO varchar(1),
+JURISDICTION_CODE varchar(3),
+X_COORD_CD bigint,
+Y_COORD_CD bigint,
+Latitude double precision,
+Longitude double precision
+)
+.E
+CREATE TABLE all_comments(
+comment_id text PRIMARY KEY,
+user_id text,
+movie_id text,
+commenter_name varchar(50),
+email text,
+comment_text text,
+comment_date date
+)
+.E
+CREATE TABLE all_sessions(
+session_id text PRIMARY KEY,
+user_id text,
+jwt text
+)
+.E
+CREATE TABLE all_users( 
+user_id text PRIMARY KEY,
+user_name varchar(50),
+email text,
+user_password text
+)
+.E
+CREATE TABLE movie_cast(
+movie_id text,
+cast_name text,
+PRIMARY KEY (movie_id, cast_name)
+)
+.E
+CREATE TABLE movie_countries(
+movie_id text,
+country varchar(50),
+PRIMARY KEY (movie_id, country)
+)
+.E
+CREATE TABLE movie_directors(
+movie_id text,
+director varchar(50),
+PRIMARY KEY (movie_id, director)
+)
+.E
+CREATE TABLE movie_genres(
+movie_id text,
+genre varchar(50),
+PRIMARY KEY (movie_id, genre)
+)
+.E
+CREATE TABLE movie_languages(
+movie_id text,
+movie_language varchar(50),
+PRIMARY KEY (movie_id, movie_language)
+)
+.E
+CREATE TABLE movie_writers(
+movie_id text,
+writer text,
+PRIMARY KEY (movie_id, writer)
+)
+.E
+CREATE TABLE movies_info(
+movie_id text PRIMARY KEY,
+plot text,
+runtime float,
+num_mflix_comments float,
+title text,
+fullplot text,
+rated text,
+lastupdated date,
+year text,
+type text,
+poster text,
+award_wins int,
+award_nominations int,
+award_text text,
+imdb_rating float,
+imdb_votes int,
+imdb_id int,
+tomato_viewer_rating float,
+tomato_viewer_num_reviews float,
+tomato_viewer_meter float,
+tomato_lastupdated date,
+tomato_fresh float,
+tomato_rotten float,
+tomato_critic_rating float,
+tomato_critic_num_reviews float,
+tomato_critic_meter float,
+tomato_dvd_date date,
+tomato_website text,
+tomato_production text,
+tomato_consensus text
+)
+.E
