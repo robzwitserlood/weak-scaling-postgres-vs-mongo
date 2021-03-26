@@ -1,89 +1,69 @@
 SELECT *
 FROM arrest_info
 WHERE pd_desc LIKE 'ASSAULT 3' 
--- OR pd_desc LIKE 'RAPE 3' 
--- OR pd_desc LIKE 'RAPE 2'  
--- OR pd_desc LIKE 'RAPE 1' 
--- OR pd_desc LIKE 'OBSCENITY 1'
+OR pd_desc LIKE 'RAPE 3' 
+OR pd_desc LIKE 'RAPE 2'  
+OR pd_desc LIKE 'RAPE 1' 
+OR pd_desc LIKE 'OBSCENITY 1'
 .E
-SELECT arrest_precinct
--- , arrest_date
--- , pd_cd
--- , pd_desc
--- , ky_cd
+SELECT arrest_precinct, arrest_date, pd_cd, pd_desc, ky_cd
 FROM arrest_info
 .E
-SELECT arrest_precinct
--- , arrest_date
--- , pd_cd
--- , pd_desc
--- , ky_cd
+SELECT arrest_precinct, arrest_date, pd_cd, pd_desc, ky_cd
 FROM arrest_info
 WHERE pd_desc LIKE 'ASSAULT 3' 
--- OR pd_desc LIKE 'RAPE 3' 
--- OR pd_desc LIKE 'RAPE 2'  
--- OR pd_desc LIKE 'RAPE 1' 
--- OR pd_desc LIKE 'OBSCENITY 1'
+OR pd_desc LIKE 'RAPE 3' 
+OR pd_desc LIKE 'RAPE 2'  
+OR pd_desc LIKE 'RAPE 1' 
+OR pd_desc LIKE 'OBSCENITY 1'
+.E
+SELECT *
+FROM arrest_info
+INNER JOIN arrest_person ON arrest_info.arrest_key = arrest_person.arrest_key
+WHERE arrest_info.law_cat_cd LIKE 'F' and arrest_person.perp_sex LIKE 'M';
 .E
 SELECT arrest_info.arrest_precinct, arrest_person.perp_race
--- , arrest_info.arrest_precinct, arrest_person.perp_sex
--- , arrest_info.arrest_date, arrest_person.age_group
+ , arrest_info.arrest_precinct, arrest_person.perp_sex
+ , arrest_info.arrest_date, arrest_person.age_group
 FROM arrest_info
 INNER JOIN arrest_person ON arrest_info.arrest_key = arrest_person.arrest_key;
 .E
-SELECT *
-FROM arrest_info
-INNER JOIN arrest_person ON arrest_info.arrest_key = arrest_person.arrest_key
-WHERE arrest_info.law_cat_cd LIKE 'F' and arrest_person.perp_sex LIKE 'M' 
--- AND arrest_info.ky_cd LIKE '105.0' AND arrest_person.age_group LIKE '25-44';
--- AND arrest_info.arrest_precinct LIKE '75' AND arrest_person.perp_race LIKE 'BLACK';
-.E
 SELECT arrest_info.arrest_precinct, arrest_person.perp_race
 -- , arrest_info.arrest_precinct, arrest_person.perp_sex
 -- , arrest_info.arrest_date, arrest_person.age_group
 FROM arrest_info
 INNER JOIN arrest_person ON arrest_info.arrest_key = arrest_person.arrest_key
-WHERE arrest_info.law_cat_cd LIKE 'F' and arrest_person.perp_sex LIKE 'M' 
--- AND arrest_info.ky_cd LIKE '105.0' AND arrest_person.age_group LIKE '25-44';
--- AND arrest_info.arrest_precinct LIKE '75' AND arrest_person.perp_race LIKE 'BLACK';
-.E
-SELECT arrest_info.arrest_precinct, arrest_person.perp_race, arrest_location.arrest_boro
--- , arrest_info.arrest_precinct, arrest_person.perp_sex, arrest_location.y_coord_cd
--- , arrest_info.arrest_date, arrest_person.age_group, arrest_location.x_coord_cd
-FROM arrest_info
-INNER JOIN arrest_person ON arrest_info.arrest_key = arrest_person.arrest_key
-INNER JOIN arrest_location on arrest_info.arrest_key = arrest_location.arrest_key
+WHERE arrest_info.law_cat_cd LIKE 'F' and arrest_person.perp_sex LIKE 'M';
 .E
 SELECT *
 FROM arrest_info
 INNER JOIN arrest_person ON arrest_info.arrest_key = arrest_person.arrest_key
 INNER JOIN arrest_location on arrest_info.arrest_key = arrest_location.arrest_key
 WHERE arrest_info.law_cat_cd LIKE 'F' AND arrest_person.perp_sex LIKE 'M' AND arrest_location.arrest_boro LIKE 'B';
--- AND arrest_info.ky_cd LIKE '105.0' AND arrest_person.age_group LIKE '25-44' AND arrest_location.jurisdiction_code LIKE '0'
--- AND arrest_info.arrest_precinct LIKE '44' AND arrest_person.perp_race LIKE 'BLACK';
 .E
 SELECT arrest_info.arrest_precinct, arrest_person.perp_race, arrest_location.arrest_boro
--- , arrest_info.arrest_precinct, arrest_person.perp_sex, arrest_location.y_coord_cd
--- , arrest_info.arrest_date, arrest_person.age_group, arrest_location.x_coord_cd
+ , arrest_info.arrest_precinct, arrest_person.perp_sex, arrest_location.y_coord_cd
+ , arrest_info.arrest_date, arrest_person.age_group, arrest_location.x_coord_cd
+FROM arrest_info
+INNER JOIN arrest_person ON arrest_info.arrest_key = arrest_person.arrest_key
+INNER JOIN arrest_location on arrest_info.arrest_key = arrest_location.arrest_key
+.E
+SELECT arrest_info.arrest_precinct, arrest_person.perp_race, arrest_location.arrest_boro
+ , arrest_info.arrest_precinct, arrest_person.perp_sex, arrest_location.y_coord_cd
+ , arrest_info.arrest_date, arrest_person.age_group, arrest_location.x_coord_cd
 FROM arrest_info
 INNER JOIN arrest_person ON arrest_info.arrest_key = arrest_person.arrest_key
 INNER JOIN arrest_location on arrest_info.arrest_key = arrest_location.arrest_key
 WHERE arrest_info.law_cat_cd LIKE 'F' AND arrest_person.perp_sex LIKE 'M' AND arrest_location.arrest_boro LIKE 'B';
--- AND arrest_info.ky_cd LIKE '105.0' AND arrest_person.age_group LIKE '25-44' AND arrest_location.jurisdiction_code LIKE '0'
--- AND arrest_info.arrest_precinct LIKE '44' AND arrest_person.perp_race LIKE 'BLACK';
 .E
 SELECT arrest_precinct, count(arrest_precinct)
 FROM arrest_info
-WHERE ofsn_desc LIKE 'RAPE'
-OR ofsn_desc LIKE 'ROBBERY'
-OR ofsn_desc LIKE 'BURGLARY'
+WHERE ofsn_desc LIKE 'ROBBERY'
 GROUP by arrest_precinct
 .E
 SELECT arrest_precinct, count(arrest_precinct)
 FROM arrest_info
 INNER JOIN arrest_person ON arrest_info.arrest_key = arrest_person.arrest_key
-WHERE arrest_info.ofsn_desc LIKE 'RAPE' AND arrest_person.perp_sex LIKE 'M'
-OR arrest_info.ofsn_desc LIKE 'ROBBERY' AND arrest_person.perp_race LIKE 'WHITE'
-OR arrest_info.ofsn_desc LIKE 'BURGLARY' AND arrest_person.age_group LIKE '25-44'
+WHERE arrest_info.ofsn_desc LIKE 'ROBBERY' AND arrest_person.perp_sex LIKE 'M'
 GROUP by arrest_precinct
 .E
