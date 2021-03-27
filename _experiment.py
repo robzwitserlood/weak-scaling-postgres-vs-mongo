@@ -1,6 +1,7 @@
 import os
 import time
 import json
+import sys
 import psycopg2
 import pandas as pd
 import numpy as np
@@ -291,7 +292,7 @@ class Experiment:
             start = time.time()
             try:
                 mycol = self.mongodb["arrest_info"]
-                mydoc = mycol.find({ }, { 'ARREST_PRECINCT':1, 'ARREST_DATE':1 , 'PD_CD':1, 'PD_DESC':1, 'KY_CD':1 })
+                mydoc = mycol.find({ }, { 'ARREST_PRECINCT':1, 'ARREST_DATE':1 , 'PD_CD':1, 'PD_DESC':1, 'KY_CD':1 }).sort([( '$natural', 1 )] )
                 temp = [i for i in mydoc] # Equivalent to fetchall for postgres
             except:
                 print('\t Query failed')
@@ -313,7 +314,7 @@ class Experiment:
                         },
                     # The SELECT PART
                     {  'ARREST_PRECINCT':1, 'ARREST_DATE':1 , 'PD_CD':1, 'PD_DESC':1, 'KY_CD':1  }
-                )
+                ).sort([( '$natural', 1 )] )
                 temp = [i for i in mydoc] # Equivalent to fetchall for postgres
             except:
                 print('\t Query failed')
@@ -322,7 +323,6 @@ class Experiment:
         elif case[3] == 4:
             start = time.time()
             try:
-                '''
                 mycol = self.mongodb["arrest_info"]
                 mydoc = mycol.aggregate([
                     {
@@ -347,9 +347,10 @@ class Experiment:
                                 ]
                             }
                         }
-                    ])
+                    ], maxTimeMS = 2000)
                 temp = [i for i in mydoc] # Equivalent to fetchall for postgres
-                '''
+            except pymongo.errors.ExecutionTimeout:
+                print('\t \t \t Time limit exceeded')
             except:
                 print('\t Query failed')
             end = time.time()
@@ -357,7 +358,6 @@ class Experiment:
         elif case[3] == 5:
             start = time.time()
             try:
-                '''
                 mycol = self.mongodb["arrest_info"]
                 mydoc = mycol.aggregate([
                     {
@@ -385,10 +385,11 @@ class Experiment:
                             'AGE_GROUP' : "$person.AGE_GROUP"
                             }
                         }
-                    ]
+                    ], maxTimeMS = 2000
                 )
                 temp = [i for i in mydoc] # Equivalent to fetchall for postgres
-                '''
+            except pymongo.errors.ExecutionTimeout:
+                print('\t \t \t Time limit exceeded')
             except:
                 print('\t Query failed')
             end = time.time()
@@ -396,7 +397,6 @@ class Experiment:
         elif case[3] == 6:
             start = time.time()
             try:
-                '''
                 mycol = self.mongodb["arrest_info"]
                 mydoc = mycol.aggregate([
                     {
@@ -432,9 +432,10 @@ class Experiment:
                             'AGE_GROUP' : "$person.AGE_GROUP"
                             }
                         }
-                    ])
+                    ], maxTimeMS = 2000)
                 temp = [i for i in mydoc] # Equivalent to fetchall for postgres
-                '''
+            except pymongo.errors.ExecutionTimeout:
+                print('\t \t \t Time limit exceeded')
             except:
                 print('\t Query failed')
             end = time.time()
@@ -442,7 +443,6 @@ class Experiment:
         elif case[3] == 7:
             start = time.time()
             try:
-                '''
                 mycol = self.mongodb["arrest_info"]
                 mydoc = mycol.aggregate([
                     {
@@ -482,9 +482,10 @@ class Experiment:
                                 ]
                             }
                         }
-                    ])
+                    ], maxTimeMS = 2000)
                 temp = [i for i in mydoc] # Equivalent to fetchall for postgres
-                '''
+            except pymongo.errors.ExecutionTimeout:
+                print('\t \t \t Time limit exceeded')
             except:
                 print('\t Query failed')
             end = time.time()
@@ -492,7 +493,6 @@ class Experiment:
         elif case[3] == 8:
             start = time.time()
             try:
-                '''
                 mycol = self.mongodb["arrest_info"]
                 mydoc = mycol.aggregate([
                     {
@@ -537,9 +537,10 @@ class Experiment:
                             'Y-COORDINATE': "$location.Y_COORD_CD"
                             }
                         }
-                    ])
+                    ], maxTimeMS = 2000)
                 temp = [i for i in mydoc] # Equivalent to fetchall for postgres
-                '''
+            except pymongo.errors.ExecutionTimeout:
+                print('\t \t \t Time limit exceeded')
             except:
                 print('\t Query failed')
             end = time.time()
@@ -547,7 +548,6 @@ class Experiment:
         elif case[3] == 9:
             start = time.time()
             try:
-                '''
                 mycol = self.mongodb["arrest_info"]
                 mydoc = mycol.aggregate([
                     {
@@ -601,9 +601,10 @@ class Experiment:
                             'Y-COORDINATE': "$location.Y_COORD_CD"
                             }
                         }
-                    ])
+                    ], maxTimeMS = 2000)
                 temp = [i for i in mydoc] # Equivalent to fetchall for postgres
-                '''
+            except pymongo.errors.ExecutionTimeout:
+                print('\t \t \t Time limit exceeded')
             except:
                 print('\t Query failed')
             end = time.time()
@@ -611,7 +612,6 @@ class Experiment:
         elif case[3] == 10:
             start = time.time()
             try:
-                '''
                 mycol = self.mongodb["arrest_info"]
                 mydoc = mycol.aggregate([
                         {
@@ -624,9 +624,10 @@ class Experiment:
                     {
                         "$group" : {
                             '_id':"$ARREST_PRECINCT", 'count':{'$sum':1}}}
-                ])
+                ], maxTimeMS = 2000)
                 temp = [i for i in mydoc] # Equivalent to fetchall for postgres
-                '''
+            except pymongo.errors.ExecutionTimeout:
+                print('\t \t \t Time limit exceeded')
             except:
                 print('\t Query failed')
             end = time.time()
@@ -634,7 +635,6 @@ class Experiment:
         elif case[3] == 11:
             start = time.time()
             try:
-                '''
                 mycol = self.mongodb["arrest_info"]
                 mydoc = mycol.aggregate([
                     {
@@ -663,9 +663,10 @@ class Experiment:
                         "$group" : {
                             '_id':"$ARREST_PRECINCT", 'count':{'$sum':1}}
                     }
-                    ])
+                    ], maxTimeMS = 2000)
                 temp = [i for i in mydoc] # Equivalent to fetchall for postgres
-                '''
+            except pymongo.errors.ExecutionTimeout:
+                print('\t \t \t Time limit exceeded')
             except:
                 print('\t Query failed')
             end = time.time()
