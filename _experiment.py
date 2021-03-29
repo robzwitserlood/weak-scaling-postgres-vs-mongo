@@ -153,7 +153,7 @@ class Experiment:
         new_row = {"person": self.person,
                    "data_set": self.data_set[case[0]],
                    "data_store": self.data_store[case[1]],
-                   "data_size": self.data_size[case[2]][case[1]],
+                   "data_size": self.data_size[case[2]][case[0]],
                    "query": self.query[case[3]],
                    "trial": self.trail[case[4]],
                    "response_time": response_time}
